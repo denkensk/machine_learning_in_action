@@ -1,5 +1,6 @@
 #-*- coding: utf-8 -*-
 from math import log
+import operator
 
 def calcShannonEnt(dataSet):
     # 数据集中实例的总数
@@ -45,10 +46,47 @@ def chooseBestFeatureToSplit(dataSet):
             prob =  len(subDataSet) / float(len(dataSet))
             newEntropy += prob * calcShannonEnt(subDataSet)
         infoGain = baseEntropy - newEntropy
-        if (infoGain > bestInfoGain)
+        if (infoGain > bestInfoGain):
             bestInfoGain = infoGain
             bestFeature = i
     return bestFeature
+
+def majorityCnt(classList):
+    classCount = {}
+    for vote in classList:
+        if vote not in classCount.keys():
+            classCount[vote] = 0
+        classCount[vote] += 1
+    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
+    return sortedClassCount[0][0]
+
+def createTree(dataSet, labels):
+    classList = [example[-1] for example in dataSet]
+    # the method count returns count of how many times obj occurs in list
+    if classList.count(classList[0]) == len(classList):
+        return classList[0]
+    if len(dataSet[0]) == 1:
+        return majorityCnt(classList)
+
+    bestFeat = chooseBestFeatureToSplit(dataSet)
+    bestFeatLabel = labels[bestFeat]
+
+    myTree = {bestFeatLabel:{}}
+    del(labels[bestFeat])
+    featValues = [example[bestFeat] for example in dataSet]
+    # set 消除重复的元素
+    uniqueVals = set(featValues)
+
+    # 根据最佳特征分类后，再对分出来的类别进行递归计算
+    for value in uniqueVals:
+        subLabels = labels[:]
+        myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value), subLabels)
+
+    return myTree
+
+
+
+
 
 
 
