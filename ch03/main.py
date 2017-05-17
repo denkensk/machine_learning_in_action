@@ -14,5 +14,22 @@ import treePlotter
 # print labels
 # myTree = trees.createTree(myDat, labels)
 # print myTree
-
-treePlotter.createPlot()
+# print "test"
+# treePlotter.createPlot()
+# myTree = treePlotter.retrieveTree(0)
+# myTree['no surfacing'][3] = 'maybe'
+# treePlotter.createPlot(myTree)
+myDat, labels = trees.createDataSet()
+# print labels
+# print myDat
+myTree = treePlotter.retrieveTree(0)
+# print myTree
+# print myTree.keys()
+# print myTree.values()
+# print labels.index(myTree.keys()[0])
+# print myTree
+# print myTree.keys()[0]
+# print myTree[myTree.keys()[0]]
+# print trees.classify(myTree, labels, [1,0])
+trees.storeTree(myTree, 'classifierStorage.txt')
+print trees.grabTree('classifierStorage.txt')
