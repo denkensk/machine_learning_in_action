@@ -46,8 +46,8 @@ def trainNB0(trainMatrix, trainCategory):
     pAbusive = sum(trainCategory) / float(numTrainDocs)
     p0Num = ones(numWords)
     p1Num = ones(numWords)
-    p0Denom = 2.0
-    p1Denom = 2.0
+    p0Denom = 0.0
+    p1Denom = 0.0
 
     for i in range(numTrainDocs):
         if trainCategory[i] == 1:
@@ -58,6 +58,8 @@ def trainNB0(trainMatrix, trainCategory):
             p0Denom += sum(trainMatrix[i])
     p1Vect = log(p1Num / p1Denom)
     p0Vect = log(p0Num / p0Denom)
+    # p1Vect = p1Num / p1Denom
+    # p0Vect = p0Num / p0Denom
     return p0Vect, p1Vect, pAbusive
 
 
@@ -75,7 +77,7 @@ def testingNB():
     myVocablist = createVocabList(listOPosts)
     trainMat = []
     for postinDoc in listOPosts:
-        trainMat.append(setOfWords2Vec(myVocablist, postinDoc))
+        trainMat.append(bagOfWords2VecMN(myVocablist, postinDoc))
     p0V, p1V, pAb = trainNB0(trainMat, listClasses)
 
     testEntry = ['love', 'my', 'dalmation']
