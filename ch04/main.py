@@ -17,4 +17,5 @@ from numpy import *
 # print p1V
 # print pAb
 
-bayes.testingNB()
+# bayes.testingNB()
+bayes.spamTest()
