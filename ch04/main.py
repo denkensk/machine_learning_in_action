@@ -1,4 +1,5 @@
 import bayes
+import feedparser
 from numpy import *
 
 # listOPosts, listClasses = bayes.loadDataSet()
@@ -18,4 +19,13 @@ from numpy import *
 # print pAb
 
 # bayes.testingNB()
-bayes.spamTest()
+# bayes.spamTest()
+
+ny = feedparser.parse('http://newyork.craigslist.org/stp/index.rss')
+sf = feedparser.parse('http://sfbay.craigslist.org/stp/index.rss')
+# print ny
+# print sf
+# vocabList, pSF, pNY = bayes.localWords(ny, sf)
+# # print vocabList, pSF, pNY
+
+bayes.getTopWords(ny, sf)
